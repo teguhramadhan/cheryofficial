@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import DemoBar from "../Demobar";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -143,6 +144,7 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+      <DemoBar />
     </nav>
   );
 }
