@@ -1,13 +1,12 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { MapPin, Navigation, User, Star } from "lucide-react";
 import Image from "next/image";
 
 export default function DealerLocation() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
 
   return (
     <section

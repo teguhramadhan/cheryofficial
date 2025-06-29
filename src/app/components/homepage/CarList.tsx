@@ -33,7 +33,7 @@ const cars = [
 
 export default function CarListSection() {
   return (
-    <section className="bg-red-50 py-20 px-4 md:px-20 lg:px-24 text-zinc-800">
+    <section className="bg-blue-50/50 py-20 px-4 md:px-20 lg:px-24 text-zinc-800">
       <div className="max-w-full mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 50 }}

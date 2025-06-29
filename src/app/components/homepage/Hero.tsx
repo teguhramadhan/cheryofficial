@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const heroImages = [
   {
@@ -11,7 +12,7 @@ const heroImages = [
   },
   {
     src: "/images/hero/hero-2.jpg",
-    title: "Chery J7",
+    title: "Chery J6",
     desc: "Mobil sedan stylish dan efisien, cocok untuk perjalanan harian maupun bisnis.",
   },
   {
@@ -38,10 +39,12 @@ export default function Hero() {
   return (
     <section className="relative pt-16 h-[400px] md:min-h-screen lg:min-h-screen w-full overflow-hidden text-white">
       {/* Gambar sebelumnya */}
-      <img
+      <Image
         src={heroImages[prevIndex].src}
         alt=""
+        fill
         className="absolute inset-0 top-16 w-full h-full object-cover z-[-20]"
+        priority
       />
 
       {/* Gambar aktif dengan fade in */}

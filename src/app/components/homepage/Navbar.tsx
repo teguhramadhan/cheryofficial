@@ -18,7 +18,16 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    if (isOpen && showSearch && searchInputRef.current) {
+    if (isOpen) {
+      setShowSearch(true);
+    } else {
+      setShowSearch(false);
+    }
+  }, [isOpen]);
+
+  // 📌 Fokus hanya di desktop
+  useEffect(() => {
+    if (!isOpen && showSearch && searchInputRef.current) {
       searchInputRef.current.focus();
     }
   }, [isOpen, showSearch]);
@@ -26,14 +35,14 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/pricelist", label: "Price List" },
-    { href: "/galeri", label: "Galeri Mobil" },
-    { href: "/services", label: "Services" },
+    { href: "/galerimobil", label: "Galeri Mobil" },
+    { href: "/artikel", label: "Artikel/Blog" },
     { href: "/contactsales", label: "Contact Sales" },
   ];
 
   return (
-    <nav className="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
-      <div className="w-full max-w-full mx-auto px-4 sm:px-6 lg:px-96">
+    <nav className="bg-white shadow-md fixed top-0 left-0 right-0 z-50 uppercase">
+      <div className="w-full max-w-full mx-auto px-4 sm:px-6 lg:px-24">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center relative h-10 w-auto">
@@ -88,16 +97,6 @@ export default function Navbar() {
 
           {/* Mobile Buttons */}
           <div className="flex items-center md:hidden space-x-4">
-            <button
-              onClick={() => {
-                setIsOpen(true);
-                setShowSearch(!showSearch);
-              }}
-              className="text-gray-800 hover:text-gray-900"
-            >
-              <Search size={20} />
-            </button>
-
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"

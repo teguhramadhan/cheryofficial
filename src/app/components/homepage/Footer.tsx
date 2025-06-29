@@ -5,8 +5,8 @@ import { MapPin, Phone, Mail, User, MessageSquare } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-zinc-900 text-zinc-200 py-24 px-4 md:px-20 lg:px-24">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:justify-between md:items-start gap-12">
+    <footer className="bg-zinc-900 text-zinc-200 py-12 md:py-12 lg:py-24 px-6 md:px-12 lg:px-24">
+      <div className="max-w-full mx-auto flex flex-col md:flex-row md:justify-between md:items-start gap-12">
         {/* Logo & Deskripsi */}
         <div className="flex-1">
           <div className="mb-12">
