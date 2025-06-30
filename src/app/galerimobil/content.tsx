@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
 
 const cars = [
   {
@@ -76,6 +77,19 @@ export default function GaleriContent() {
   return (
     <section className="bg-white py-20 px-4 md:px-20 lg:px-24 pt-[72px] md:pt-[96px] lg:pt-[96px] text-zinc-800">
       <div className="max-w-full mx-auto">
+        {/* Breadcrumb */}
+        <nav className="text-sm mb-4 text-zinc-600">
+          <ol className="flex space-x-2">
+            <li>
+              <Link href="/" className="hover:underline text-blue-700">
+                Home
+              </Link>
+            </li>
+            <li>/</li>
+            <li className="text-zinc-800 font-medium">Galeri</li>
+          </ol>
+        </nav>
+
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}

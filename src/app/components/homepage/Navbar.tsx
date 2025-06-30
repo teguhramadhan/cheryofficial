@@ -38,7 +38,7 @@ export default function Navbar() {
     { href: "/pricelist", label: "Price List" },
     { href: "/galerimobil", label: "Galeri Mobil" },
     { href: "/artikel", label: "Artikel/Blog" },
-    { href: "/contactsales", label: "Contact Sales" },
+    { href: "/kontak", label: "Contact Sales" },
   ];
 
   return (
@@ -90,7 +90,7 @@ export default function Navbar() {
                   type="text"
                   placeholder="Search..."
                   ref={searchInputRef}
-                  className="ml-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="ml-2 px-2 py-1 border-b border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                 />
               )}
             </AnimatePresence>
@@ -126,7 +126,7 @@ export default function Navbar() {
                   type="text"
                   placeholder="Search..."
                   ref={searchInputRef}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-full px-3 py-2 border-b border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                 />
               </div>
             )}
@@ -143,8 +143,8 @@ export default function Navbar() {
             ))}
           </motion.div>
         )}
+        {/* <DemoBar /> */}
       </AnimatePresence>
-      <DemoBar />
     </nav>
   );
 }
