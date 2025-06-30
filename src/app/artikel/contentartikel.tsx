@@ -1,4 +1,3 @@
-import { section } from "framer-motion/client";
 import Link from "next/link";
 
 const articles = [

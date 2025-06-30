@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Sales Mobil | Budi Toyota",
+  title: "Sales Mobil | Budi Chery",
   description: "Website pribadi sales mobil Toyota terpercaya",
 };
 

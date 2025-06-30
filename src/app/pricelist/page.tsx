@@ -2,6 +2,7 @@ import Navbar from "../components/homepage/Navbar";
 import TablePriceList from "./tablepricelist";
 import Footer from "../components/homepage/Footer";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -10,12 +11,13 @@ export default function Home() {
       {/* BREADCRUMB + JUDUL DENGAN BACKGROUND */}
       <div className="relative w-full h-[250px] md:h-[300px] lg:h-[350px] mb-12 overflow-hidden rounded-lg">
         <div className="absolute inset-0">
-          <img
-            src="/images/hero/hero-1.jpg" // Ganti path gambar sesuai punyamu
+          <Image
+            src="/images/hero/hero-1.jpg" // Ganti path sesuai punyamu
             alt="Hero Artikel"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover w-full h-full"
+            priority
           />
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         </div>
 
         <div className="relative z-10 flex flex-col justify-center h-full px-6 md:px-20 lg:px-32 text-white">

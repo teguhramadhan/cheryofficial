@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "../components/homepage/Navbar";
 import Footer from "../components/homepage/Footer";
 import { Mail, Phone, Instagram, MessageCircle } from "lucide-react";
+import Image from "next/image";
 
 export default function ContactPage() {
   return (
@@ -13,10 +14,12 @@ export default function ContactPage() {
         {/* BREADCRUMB + JUDUL DENGAN BACKGROUND */}
         <div className="relative w-full h-[250px] md:h-[300px] lg:h-[350px] mb-12 overflow-hidden rounded-lg">
           <div className="absolute inset-0">
-            <img
+            <Image
               src="/images/hero/hero-1.jpg"
               alt="Hero Kontak"
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover w-full h-full"
+              priority
             />
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
           </div>

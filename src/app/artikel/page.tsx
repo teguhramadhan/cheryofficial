@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "../components/homepage/Navbar";
 import Footer from "../components/homepage/Footer";
 import ContentArtikel from "./contentartikel";
+import Image from "next/image";
 
 export default function ArticlePage() {
   return (
@@ -13,10 +14,11 @@ export default function ArticlePage() {
         {/* BREADCRUMB + JUDUL DENGAN BACKGROUND */}
         <div className="relative w-full h-[250px] md:h-[300px] lg:h-[350px] mb-12 overflow-hidden">
           <div className="absolute inset-0">
-            <img
-              src="/images/hero/hero-2.jpg" // Ganti path gambar sesuai punyamu
+            <Image
+              src="/images/hero/hero-2.jpg" // Sesuaikan path
               alt="Hero Artikel"
-              className="w-full h-full object-cover"
+              fill // Membuat image absolute fill ke parent relatif
+              className="object-cover w-full h-full"
             />
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
           </div>
