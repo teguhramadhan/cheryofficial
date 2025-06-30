@@ -3,35 +3,43 @@
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { supabase } from "@/app/lib/supabaseClient";
 
-const cars = [
-  {
-    name: "Chery Omoda 5 GT",
-    image: "/images/product/omoda-5gt.jpg",
-    description:
-      "SUV premium dengan 7 kursi, teknologi canggih, dan performa tangguh.",
-  },
-  {
-    name: "Chery Omoda 5",
-    image: "/images/product/omoda-5.jpg",
-    description:
-      "SUV crossover futuristik dengan desain stylish dan fitur keselamatan modern.",
-  },
-  {
-    name: "Chery Omoda E5",
-    image: "/images/product/omoda-e5.jpg",
-    description:
-      "SUV menengah dengan interior mewah, nyaman, dan efisien bahan bakar.",
-  },
-  {
-    name: "Chery Icar J6",
-    image: "/images/product/icar-J6.jpg",
-    description:
-      "SUV menengah dengan interior mewah, nyaman, dan efisien bahan bakar.",
-  },
-];
+interface Product {
+  id: string; // atau number
+  nama_product: string;
+  desc_product: string;
+  kategori_mobil: string;
+  model_mobil: string;
+  type_mobil: string;
+  harga: number | string;
+  gambar_url?: string;
+}
 
 export default function CarListSection() {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .limit(4); // tampilkan 4 mobil terbaru misalnya
+
+      if (error) {
+        console.error("Error fetching products:", error.message);
+      } else {
+        setProducts(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <section className="bg-blue-50/50 py-20 px-4 md:px-20 lg:px-24 text-zinc-800">
       <div className="max-w-full mx-auto">
@@ -55,37 +63,48 @@ export default function CarListSection() {
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {cars.map((car, index) => (
-            <motion.div
-              key={car.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white overflow-hidden hover:shadow-lg hover:shadow-blue-100 transition"
-            >
-              <div className="relative w-full h-52 md:h-72 lg:h-96">
-                <Image
-                  src={car.image}
-                  alt={car.name}
-                  fill
-                  className="object-contain object-center"
-                />
-              </div>
-              <div className="p-5 lg:p-8">
-                <h3 className="text-xl md:text-2xl font-bold mb-2">
-                  {car.name}
-                </h3>
-                <p className="text-sm md:text-base text-zinc-600">
-                  {car.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+          {loading ? (
+            <p className="col-span-full text-center text-zinc-500">
+              Memuat data mobil...
+            </p>
+          ) : products.length > 0 ? (
+            products.map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="bg-white overflow-hidden hover:shadow-lg hover:shadow-blue-100 transition"
+              >
+                <div className="relative w-full h-52 md:h-72 lg:h-96">
+                  <Image
+                    src={product.gambar_url || "/images/placeholder.png"}
+                    alt={product.nama_product}
+                    fill
+                    className="object-contain object-center"
+                  />
+                </div>
+                <div className="p-5 lg:p-8">
+                  <h3 className="text-xl md:text-2xl font-bold mb-2">
+                    {product.nama_product}
+                  </h3>
+                  <p className="text-sm md:text-base text-zinc-600">
+                    {product.desc_product}
+                  </p>
+                </div>
+              </motion.div>
+            ))
+          ) : (
+            <p className="col-span-full text-center text-zinc-500">
+              Mobil tidak ditemukan.
+            </p>
+          )}
         </div>
+
         <motion.a
-          href="/products"
-          whileHover={{ backgroundColor: "#2563EB", color: "#fff" }} // bg-blue-600
+          href="/galerimobil"
+          whileHover={{ backgroundColor: "#2563EB", color: "#fff" }}
           className="group mt-24 mx-auto relative block w-fit border border-blue-600 text-blue-600 px-6 py-3 rounded-md text-sm md:text-base font-medium overflow-hidden"
         >
           <span className="relative z-10 flex items-center gap-2">
