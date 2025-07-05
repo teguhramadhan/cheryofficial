@@ -3,7 +3,6 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { FiLogOut } from "react-icons/fi";
 
 export default function LogoutButton() {
   const supabase = createClientComponentClient();

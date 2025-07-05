@@ -12,7 +12,6 @@ export default async function AdminDashboard() {
   // 🔒 Pakai getUser() BUKAN getSession()
   const {
     data: { user },
-    error,
   } = await supabase.auth.getUser();
 
   return (
