@@ -43,7 +43,7 @@ export default function AdminNavbar({ email }: { email: string }) {
         ))}
       </nav>
 
-      {/* Kanan: User profile */}
+      {/* Kanan: User profiles */}
       <div className="flex items-center gap-4">
         <div className="hidden md:block">
           <UserProfileDropdown email={email} />
