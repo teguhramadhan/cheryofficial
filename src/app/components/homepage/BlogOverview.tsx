@@ -95,7 +95,7 @@ export default function BlogOverviewSection() {
 
         {/* Tombol Lihat Semua Artikel */}
         <motion.a
-          href="/blog"
+          href="/artikel"
           whileHover={{ backgroundColor: "#2563EB", color: "#fff" }}
           className="group mt-16 mx-auto relative block w-fit border border-blue-300 text-blue-300 px-6 py-3 rounded-md text-sm md:text-base font-medium overflow-hidden"
         >

@@ -26,25 +26,6 @@ export default async function RootLayout({
     <html lang="id">
       <body className={`${inter.variable} antialiased relative`}>
         {children}
-
-        {/* Tombol WhatsApp Floating */}
-        <a
-          href="https://wa.me/6281234567890"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fixed left-6 bottom-6 text-white flex items-center justify-center transition-colors z-50"
-        >
-          <Image
-            src="/images/wa_ic.png"
-            alt="WhatsApp Icon"
-            width={48}
-            height={48}
-            className="w-12 h-12"
-          />
-        </a>
-
-        {/* Tombol ScrollToTop */}
-        <ScrollToTop />
       </body>
     </html>
   );

@@ -1,87 +1,83 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "../lib/supabaseClient";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import { FiMenu, FiX } from "react-icons/fi";
+import UserProfileDropdown from "./UserProfileDropdown";
+import LogoutButton from "./LogoutButton";
 
-export default function AdminContentNavbar({
-  email,
-  toggleSidebar,
-}: {
-  email: string;
-  toggleSidebar: () => void;
-}) {
-  const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+export default function AdminNavbar({ email }: { email: string }) {
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push("/login");
-  };
+  const navLinks = [
+    { href: "/admin", label: "Dashboard" },
+    { href: "/admin/product", label: "Product" },
+    { href: "/admin/artikel", label: "Artikel" },
+  ];
 
   return (
-    <header className="flex items-center justify-between px-6 py-4 border-b bg-blue-600">
-      {/* ✅ Hamburger: hanya muncul di mobile */}
-      <button
-        onClick={toggleSidebar}
-        className="text-white mr-4 focus:outline-none block md:hidden"
-      >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-      </button>
+    <header className="relative max-w-full h-20 bg-white shadow border-b px-4 md:px-12 lg:px-72 flex items-center justify-between">
+      {/* Kiri: Logo */}
+      <Link href="/admin" className="flex items-center flex-shrink-0">
+        <Image
+          src="/images/logo-cherry.png"
+          alt="Logo Cherry"
+          width={120}
+          height={40}
+          className="h-auto w-auto"
+          priority
+        />
+      </Link>
 
-      {/* ✅ Right Profile */}
-      <div className="relative ml-auto">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 px-4 py-2 text-white"
-        >
-          <span>{email}</span>
-          <svg
-            className={`w-4 h-4 transition-transform ${
-              isOpen ? "rotate-180" : ""
-            }`}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
+      {/* Tengah: Nav links (md ke atas) */}
+      <nav className="hidden md:flex gap-12 text-lg absolute left-1/2 transform -translate-x-1/2">
+        {navLinks.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="relative inline-block text-slate-700 hover:text-blue-600 transition-colors duration-200 after:content-[''] after:block after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full after:absolute after:bottom-0 after:left-0"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </button>
+            {link.label}
+          </Link>
+        ))}
+      </nav>
 
-        {isOpen && (
-          <div className="absolute right-0 mt-6 w-48 bg-white border rounded shadow-md z-50">
-            <button
-              onClick={() => router.push("/admin/profile")}
-              className="block w-full text-left px-4 py-2 hover:bg-slate-100"
-            >
-              Profile Settings
-            </button>
-            <button
-              onClick={handleLogout}
-              className="block w-full text-left px-4 py-2 hover:bg-slate-100 text-red-600"
-            >
-              Logout
-            </button>
-          </div>
-        )}
+      {/* Kanan: User profile */}
+      <div className="flex items-center gap-4">
+        <div className="hidden md:block">
+          <UserProfileDropdown email={email} />
+        </div>
+
+        {/* Hamburger: sm only */}
+        <button
+          className="md:hidden text-slate-700 hover:text-blue-600 transition text-2xl"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? <FiX /> : <FiMenu />}
+        </button>
       </div>
+
+      {/* Mobile Nav: muncul kalau menuOpen */}
+      {menuOpen && (
+        <div className="absolute top-full left-0 w-full bg-white shadow border-t border-slate-200 flex flex-col items-center z-50 md:hidden">
+          <h1 className="text-lg py-4">{email}</h1>
+          <div className="border-t w-full"></div>
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="w-full text-center px-4 py-4 text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition"
+              onClick={() => setMenuOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <div className="border-t w-full"></div>
+          <LogoutButton />
+        </div>
+      )}
     </header>
   );
 }

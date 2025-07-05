@@ -1,8 +1,11 @@
+// src/app/admin/layout.tsx
+
 import { ReactNode } from "react";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import AdminShell from "../components/AdminShell";
+import AdminNavbar from "@/app/components/AdminNavbar";
+import AdminFooter from "../components/AdminFooter";
 
 export default async function AdminLayout({
   children,
@@ -11,15 +14,25 @@ export default async function AdminLayout({
 }) {
   const supabase = createServerComponentClient({ cookies });
 
+  // Pastikan user login
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!session) {
+  if (!user) {
     redirect("/login");
   }
 
   return (
-    <AdminShell email={session.user.email ?? "No Email"}>{children}</AdminShell>
+    <section className="min-h-screen flex flex-col bg-slate-100">
+      {/* Navbar */}
+      <AdminNavbar email={user.email || "No Email"} />
+
+      {/* Konten */}
+      <main className="flex-1">{children}</main>
+
+      {/* Footer */}
+      <AdminFooter />
+    </section>
   );
 }

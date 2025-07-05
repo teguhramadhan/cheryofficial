@@ -5,14 +5,16 @@ import { cookies } from "next/headers";
 import SuccessAlert from "@/app/components/SuccessAlert";
 
 interface PageProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>; // ⬅️ Changed to Promise
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export default async function ProductPage({ searchParams }: PageProps) {
-  // Await the searchParams Promise
-  const resolvedSearchParams = await searchParams; // ⬅️ Await searchParams
+  const resolvedSearchParams = await searchParams;
 
-  const supabase = createServerComponentClient({ cookies });
+  // ✅ Pass cookies function directly to Supabase
+  const supabase = createServerComponentClient({
+    cookies,
+  });
 
   const { data: products, error } = await supabase.from("products").select("*");
 
@@ -21,7 +23,7 @@ export default async function ProductPage({ searchParams }: PageProps) {
   }
 
   return (
-    <div className="p-6">
+    <div className="max-w-full bg-white mx-4 md:mx-12 lg:mx-72 my-6 p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Daftar Produk</h1>
         <Link
@@ -38,16 +40,16 @@ export default async function ProductPage({ searchParams }: PageProps) {
         )}
 
       <div className="overflow-x-auto">
-        <table className="w-full border">
+        <table className="w-full min-w-[1000px] border border-slate-300 text-sm">
           <thead>
             <tr className="bg-slate-200 text-center">
-              <th className="p-2 border">Gambar</th>
-              <th className="p-2 border">Nama</th>
-              <th className="p-2 border">Kategori</th>
-              <th className="p-2 border">Model</th>
-              <th className="p-2 border">Type</th>
-              <th className="p-2 border">Harga</th>
-              <th className="p-2 border">Aksi</th>
+              <th className="p-3 border whitespace-nowrap">Gambar</th>
+              <th className="p-3 border whitespace-nowrap">Nama</th>
+              <th className="p-3 border whitespace-nowrap">Kategori</th>
+              <th className="p-3 border whitespace-nowrap">Model</th>
+              <th className="p-3 border whitespace-nowrap">Type</th>
+              <th className="p-3 border whitespace-nowrap">Harga</th>
+              <th className="p-3 border whitespace-nowrap">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -56,7 +58,7 @@ export default async function ProductPage({ searchParams }: PageProps) {
                 key={product.id}
                 className="border hover:bg-slate-50 text-center"
               >
-                <td className="p-2 border">
+                <td className="p-3 border">
                   <div className="flex justify-center">
                     {product.gambar_url ? (
                       <Image
@@ -71,14 +73,22 @@ export default async function ProductPage({ searchParams }: PageProps) {
                     )}
                   </div>
                 </td>
-                <td className="p-2 border">{product.nama_product}</td>
-                <td className="p-2 border">{product.kategori_mobil}</td>
-                <td className="p-2 border">{product.model_mobil}</td>
-                <td className="p-2 border">{product.type_mobil}</td>
-                <td className="p-2 border">
+                <td className="p-3 border whitespace-nowrap">
+                  {product.nama_product}
+                </td>
+                <td className="p-3 border whitespace-nowrap">
+                  {product.kategori_mobil}
+                </td>
+                <td className="p-3 border whitespace-nowrap">
+                  {product.model_mobil}
+                </td>
+                <td className="p-3 border whitespace-nowrap">
+                  {product.type_mobil}
+                </td>
+                <td className="p-3 border whitespace-nowrap">
                   Rp {product.harga?.toLocaleString()}
                 </td>
-                <td className="p-2 border">
+                <td className="p-3 border whitespace-nowrap">
                   <Link
                     href={`/admin/product/editproduct/${product.id}`}
                     className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 text-sm"
@@ -90,12 +100,6 @@ export default async function ProductPage({ searchParams }: PageProps) {
             ))}
           </tbody>
         </table>
-
-        {products?.length === 0 && (
-          <p className="flex justify-center items-center text-gray-500 mt-4">
-            Belum ada produk.
-          </p>
-        )}
       </div>
     </div>
   );

@@ -6,3 +6,33 @@ html,
 body {
   overflow-x: hidden;
 }
+
+strong {
+  font-weight: bold;
+}
+em {
+  font-style: italic;
+}
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.ProseMirror {
+  padding: 1rem;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.ProseMirror p.is-empty:first-child::before {
+  color: #9ca3af; /* Tailwind gray-400 */
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
